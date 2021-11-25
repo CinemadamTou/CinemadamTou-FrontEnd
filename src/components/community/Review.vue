@@ -66,7 +66,7 @@ export default {
       return `${this.review.created_at.slice(0,4)}-${this.review.created_at.slice(5,7)}-${this.review.created_at.slice(8,10)}`
     },
     imgUrl () {
-      return `http://127.0.0.1:8000${this.review.user.img}`
+      return `https://cinemadamtou.herokuapp.com${this.review.user.img}`
     },
   }
 }

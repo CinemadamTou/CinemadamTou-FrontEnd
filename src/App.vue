@@ -237,7 +237,7 @@ export default {
   },
   computed: {
     imgUrl () {
-      return `http://127.0.0.1:8000${this.user.img}`
+      return `https://cinemadamtou.herokuapp.com${this.user.img}`
     },
     ...mapState(['user', 'username', '']),
     ...mapGetters(['isLogin','tinderMovies']),

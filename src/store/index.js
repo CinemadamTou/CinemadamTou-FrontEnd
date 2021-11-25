@@ -201,7 +201,7 @@ export default new Vuex.Store({
     saveTinder: function (context, data) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/movies/research/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/research/`,
         data: {
           'tinderLikes': data
         },
@@ -219,7 +219,7 @@ export default new Vuex.Store({
     setUsername: function ({ commit }) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/accounts/username/`,
+        url: `https://cinemadamtou.herokuapp.com/accounts/username/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -235,7 +235,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/accounts/signup/`,
+          url: `https://cinemadamtou.herokuapp.com/accounts/signup/`,
           data: data,
         })
         .then(res => {
@@ -253,7 +253,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/accounts/api/token/`,
+          url: `https://cinemadamtou.herokuapp.com/accounts/api/token/`,
           data: data
         })
         .then(res => {
@@ -280,7 +280,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'get',
-          url: `http://127.0.0.1:8000/accounts/profile/${user_id}/`,
+          url: `https://cinemadamtou.herokuapp.com/accounts/profile/${user_id}/`,
           headers: setHeader(),
         })
         .then(res => {
@@ -302,7 +302,7 @@ export default new Vuex.Store({
         const token = localStorage.getItem('JWT')
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/accounts/profile/image/`,
+          url: `https://cinemadamtou.herokuapp.com/accounts/profile/image/`,
           data: formData,
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -323,7 +323,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/accounts/profile/phrase/`,
+          url: `https://cinemadamtou.herokuapp.com/accounts/profile/phrase/`,
           data: {
             phrase: data
           },
@@ -344,7 +344,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/accounts/profile/intro/`,
+          url: `https://cinemadamtou.herokuapp.com/accounts/profile/intro/`,
           data: {
             intro: data
           },
@@ -364,7 +364,7 @@ export default new Vuex.Store({
     userFollow: function ({ dispatch }, user_id) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/accounts/profile/${user_id}/follow/`,
+        url: `https://cinemadamtou.herokuapp.com/accounts/profile/${user_id}/follow/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -382,7 +382,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'get',
-          url: 'http://127.0.0.1:8000/movies/',
+          url: 'https://cinemadamtou.herokuapp.com/movies/',
           headers: setHeader(),
         })
         .then(res => {
@@ -402,7 +402,7 @@ export default new Vuex.Store({
     loadTinderMovie: function ({ commit, dispatch }) {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/movies/tindermovie',
+        url: 'https://cinemadamtou.herokuapp.com/movies/tindermovie',
         headers: setHeader(),
       })
       .then(res => {
@@ -418,7 +418,7 @@ export default new Vuex.Store({
     loadGenres: function ({ commit }) {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/movies/genre/',
+        url: 'https://cinemadamtou.herokuapp.com/movies/genre/',
         headers: setHeader(),
       })
       .then(res => {
@@ -434,7 +434,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'get',
-          url: `http://127.0.0.1:8000/movies/genre/${genre.id}/movies/`,
+          url: `https://cinemadamtou.herokuapp.com/movies/genre/${genre.id}/movies/`,
           headers: setHeader(),
         })
         .then(res => {
@@ -454,7 +454,7 @@ export default new Vuex.Store({
     loadMovieNews: function ({ commit }) {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/movies/new/',
+        url: 'https://cinemadamtou.herokuapp.com/movies/new/',
         headers: setHeader(),
       })
       .then(res => {
@@ -469,7 +469,7 @@ export default new Vuex.Store({
     loadMovieDetail: function ({ commit }, movie_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -484,7 +484,7 @@ export default new Vuex.Store({
     movieLike: function ({ dispatch }, movie_id) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/like/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/like/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -501,7 +501,7 @@ export default new Vuex.Store({
     loadRecommendMovie: function ({ commit }, movie_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/recommend/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/recommend/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -516,7 +516,7 @@ export default new Vuex.Store({
     loadMovieComments: function ({ commit }, movie_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/comments/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/comments/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -532,7 +532,7 @@ export default new Vuex.Store({
     loadMovieActors: function ({ commit }, movie_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/actors/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/actors/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -548,7 +548,7 @@ export default new Vuex.Store({
     loadMovieImages: function ({ commit }, movie_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/images/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/images/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -564,7 +564,7 @@ export default new Vuex.Store({
     loadMovieVideos: function ({ commit }, movie_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${movie_id}/videos/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/videos/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -580,7 +580,7 @@ export default new Vuex.Store({
     createMovieComment: function ({ commit }, data) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/movies/${data.movieId}/comments/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${data.movieId}/comments/`,
         data: {
           content: data.content,
         },
@@ -599,7 +599,7 @@ export default new Vuex.Store({
     updateMovieComment: function (context, data) {
       axios({
         method: 'put',
-        url: `http://127.0.0.1:8000/movies/${data.movie}/comments/${data.id}/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${data.movie}/comments/${data.id}/`,
         data: {
           content: data.content,
         },
@@ -617,7 +617,7 @@ export default new Vuex.Store({
     deleteMovieComment: function ({ dispatch }, data) {
       axios({
         method: 'delete',
-        url: `http://127.0.0.1:8000/movies/${data.movie}/comments/${data.id}/`,
+        url: `https://cinemadamtou.herokuapp.com/movies/${data.movie}/comments/${data.id}/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -633,7 +633,7 @@ export default new Vuex.Store({
     loadReviews: function ({ commit }, new_page) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/community/?page=${new_page}`,
+        url: `https://cinemadamtou.herokuapp.com/community/?page=${new_page}`,
         headers: setHeader(),
       })
       .then(res => {
@@ -649,7 +649,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'get',
-          url: 'http://127.0.0.1:8000/community/cnt/',
+          url: 'https://cinemadamtou.herokuapp.com/community/cnt/',
           headers: setHeader(),
         })
         .then(res => {
@@ -666,7 +666,7 @@ export default new Vuex.Store({
     loadReviewDetail: function ({ commit }, review_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/community/${review_id}/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${review_id}/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -682,7 +682,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/movies/${data.movie}/reviews/`,
+          url: `https://cinemadamtou.herokuapp.com/movies/${data.movie}/reviews/`,
           data: {
             title: data.title,
             content: data.content,
@@ -704,7 +704,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'get',
-          url: `http://127.0.0.1:8000/movies/${movie_id}/vote/`,
+          url: `https://cinemadamtou.herokuapp.com/movies/${movie_id}/vote/`,
           headers: setHeader(),
         })
         .then(res => {
@@ -722,7 +722,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'post',
-          url: `http://127.0.0.1:8000/movies/${data.movie}/vote/`,
+          url: `https://cinemadamtou.herokuapp.com/movies/${data.movie}/vote/`,
           data: {
             score: Number(data.score),
           },
@@ -743,7 +743,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'put',
-          url: `http://127.0.0.1:8000/movies/${data.movie}/vote/`,
+          url: `https://cinemadamtou.herokuapp.com/movies/${data.movie}/vote/`,
           data: {
             score: Number(data.score),
           },
@@ -764,7 +764,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios({
           method: 'put',
-          url: `http://127.0.0.1:8000/community/${data.id}/`,
+          url: `https://cinemadamtou.herokuapp.com/community/${data.id}/`,
           data: {
             title: data.title,
             content: data.content,
@@ -785,7 +785,7 @@ export default new Vuex.Store({
     deleteReview: function ({ dispatch }, review_id) {
       axios({
         method: 'delete',
-        url: `http://127.0.0.1:8000/community/${review_id}/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${review_id}/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -801,7 +801,7 @@ export default new Vuex.Store({
     reviewLike: function ({ dispatch }, review_id) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/community/${review_id}/like/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${review_id}/like/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -818,7 +818,7 @@ export default new Vuex.Store({
     loadReviewComments: function ({ commit }, review_id) {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/community/${review_id}/comments/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${review_id}/comments/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -834,7 +834,7 @@ export default new Vuex.Store({
     createReviewComment: function ({ dispatch }, data) {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/community/${data.reviewId}/comments/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${data.reviewId}/comments/`,
         data: {
           content: data.content,
         },
@@ -854,7 +854,7 @@ export default new Vuex.Store({
     updateReviewComment: function (context, data) {
       axios({
         method: 'put',
-        url: `http://127.0.0.1:8000/community/${data.review}/comments/${data.id}/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${data.review}/comments/${data.id}/`,
         data: {
           content: data.content,
         },
@@ -872,7 +872,7 @@ export default new Vuex.Store({
     deleteReviewComment: function ({ dispatch }, data) {
       axios({
         method: 'delete',
-        url: `http://127.0.0.1:8000/community/${data.review}/comments/${data.id}/`,
+        url: `https://cinemadamtou.herokuapp.com/community/${data.review}/comments/${data.id}/`,
         headers: setHeader(),
       })
       .then(res => {
@@ -888,7 +888,7 @@ export default new Vuex.Store({
     searchMovie: function ({ commit }, data) {
       axios({
         method: 'POST',
-        url: 'http://127.0.0.1:8000/movies/search/',
+        url: 'https://cinemadamtou.herokuapp.com/movies/search/',
         data: {
           inputData: data
         },
