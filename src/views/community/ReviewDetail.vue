@@ -196,7 +196,7 @@ export default {
       }
     },
     userImgUrl () {
-      return `http://127.0.0.1:8000${this.selectedReview.user.img}`
+      return `https://cinemadamtou.herokuapp.com${this.selectedReview.user.img}`
     },
     dateFilter1 () {
       return `${this.selectedReview.created_at.slice(0,4)}년 ${this.selectedReview.created_at.slice(5,7)}월 ${this.selectedReview.created_at.slice(8,10)}일`

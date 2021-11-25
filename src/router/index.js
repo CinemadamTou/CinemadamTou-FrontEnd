@@ -18,7 +18,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/*',
+    component: 404
+  },
+  {
+    path: '/',
     name: 'Home',
     component: Home,
   },
@@ -63,7 +67,6 @@ const routes = [
     component: Profile,
   },
   {
-    // path: '/community?page=:page',
     path: '/community/page/:page',
     name: 'ReviewList',
     component: ReviewList,

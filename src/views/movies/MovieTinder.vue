@@ -116,8 +116,11 @@ export default {
       this.history.push(item)
       if (this.history.length === 15) {
         this.$store.dispatch('saveTinder', this.tinderLikes)
-        this.$store.commit("RESET_TINDER_LIKE");
-        this.$router.push({ name: 'Profile', params: { userId: this.user.id }})
+        .then(() => {
+          this.$store.dispatch('loadProfile', this.user.id)
+          this.$store.commit("RESET_TINDER_LIKE");
+          this.$router.push({ name: 'Profile', params: { userId: this.user.id }})
+        })
       }
     },
     async decide(choice) {

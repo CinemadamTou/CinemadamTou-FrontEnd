@@ -220,6 +220,7 @@ export default {
     if (localStorage.getItem('JWT')) {
       this.$store.dispatch('setUsername')
     }
+    this.$router.push({ name: 'Home' })
   },
   watch: {
     $route (to, from) {
@@ -229,7 +230,11 @@ export default {
         this.inRecommend = false
       }
       if (from.name === 'MovieTinder' && to.name === 'Profile') {
-        this.inResult = true
+        this.$store
+        .dispatch('setUsername')
+        .then(() => {
+          this.inResult = true
+        })
       } else {
         this.inResult = false
       }

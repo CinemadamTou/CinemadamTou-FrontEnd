@@ -166,7 +166,6 @@ export default new Vuex.Store({
     // 영화 관련 영상
     LOAD_MOVIE_VIDEOS: function (state, data) {
       state.movieVideos = data
-      console.log(state.movieVideos)
     },
 
     // 검색 영화 불러오기
@@ -196,37 +195,43 @@ export default new Vuex.Store({
 
   },
   actions: {
-
     // 틴더 결과 보내기
     saveTinder: function (context, data) {
-      axios({
-        method: 'post',
-        url: `https://cinemadamtou.herokuapp.com/movies/research/`,
-        data: {
-          'tinderLikes': data
-        },
-        headers: setHeader(),
-      })
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'post',
+          url: `https://cinemadamtou.herokuapp.com/movies/research/`,
+          data: {
+            'tinderLikes': data
+          },
+          headers: setHeader(),
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
       })
     },
 
     // 사용자 이름 불러오기
     setUsername: function ({ commit }) {
-      axios({
-        method: 'get',
-        url: `https://cinemadamtou.herokuapp.com/accounts/username/`,
-        headers: setHeader(),
-      })
-      .then(res => {
-        commit('SET_USERNAME', res.data)
-      })
-      .catch(err => {
-        console.log(err)
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'get',
+          url: `https://cinemadamtou.herokuapp.com/accounts/username/`,
+          headers: setHeader(),
+        })
+        .then(res => {
+          commit('SET_USERNAME', res.data)
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
       })
     },
 

@@ -203,9 +203,11 @@ export default {
     // 프로필 사진 업로드
     uploadImage: function (event) {
       if (this.user.id === this.profile[0].id) {
-        this.$store.dispatch('uploadImage', event.target.files[0])
-        // 변경 후 새로고침(확인점요)
-        this.$router.go();
+        this.$store
+        .dispatch('uploadImage', event.target.files[0])
+        .then(() => {
+          this.$store.dispatch('loadProfile', this.$route.params.userId)
+        })
       }
     },
     // 문구 변경
@@ -238,7 +240,7 @@ export default {
   },
   computed: {
     imgUrl () {
-      return `http://127.0.0.1:8000${this.profile[0].img}`
+      return `https://cinemadamtou.herokuapp.com${this.profile[0].img}`
     },
     ...mapState(['user', 'username', 'genres', 'profile', 'userPhrases',]),
   }
