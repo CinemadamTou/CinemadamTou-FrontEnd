@@ -38,9 +38,28 @@ export default new Vuex.Store({
     genres: [],  // 장르들
     genreMovie: [],  // 장르별 영화
     profile: [],  // 프로필 데이터 [{ 유저 }, { 유저가 좋아하는 영화들 }]
-    scores: [], // 평가 목록
-    tinderMovies: [], // 틴더 무비
-    tinderLikes: [],
+    scores: [],  // 평가 목록
+    tinderMovies: [],  // 틴더 영화 목록
+    tinderLikes: [],  // 틴더에서 선택한 영화
+    userPhrases: [
+      '일진과의 로맨스를 꿈꾸는 애니덕후',
+      '아이맥스가 아니면 영화 안 보는 사람',
+      '혼자서라도 영화관에 가는 영화덕후',
+      '애인과 영화 데이트하는 나쁜 사람',
+      '양옆 자리까지 예매하는 예민보스',
+      '1년에 영화관 100번 가는 사람',
+      '영화관보단 넷플릭스로 보는 사람',
+      '영화배우만큼 잘생긴 사람',
+      '영화배우만큼 예쁜 사람',
+      '바보',
+      '영화관 가본 적 없는 사람',
+      '러브라이브보다가 지진 일으킨 흰수염',
+      '영화관 못 가서 코로나가 미운 사람',
+      '조조영화만 보는 스크루지',
+      '영화관에서 국밥 먹는 사람',
+      '상태 메시지로 스포일러하는 사람',
+      '영화보다가 퇴실 체크 못 한 사람',
+    ],  // 사용자 문구 목록
   },
   mutations: {
     // 틴더 좋아요 눌렀을 때 임시 저장소로 이동
@@ -177,6 +196,25 @@ export default new Vuex.Store({
 
   },
   actions: {
+
+    // 틴더 결과 보내기
+    saveTinder: function (context, data) {
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/movies/research/`,
+        data: {
+          'tinderLikes': data
+        },
+        headers: setHeader(),
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    },
+
     // 사용자 이름 불러오기
     setUsername: function ({ commit }) {
       axios({
@@ -239,17 +277,86 @@ export default new Vuex.Store({
 
     // 프로필 불러오기
     loadProfile: function ({ commit }, user_id) {
-      axios({
-        method: 'get',
-        url: `http://127.0.0.1:8000/accounts/profile/${user_id}/`,
-        headers: setHeader(),
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'get',
+          url: `http://127.0.0.1:8000/accounts/profile/${user_id}/`,
+          headers: setHeader(),
+        })
+        .then(res => {
+          commit('LOAD_PROFILE', res.data)
+          resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          reject(err)
+        })
       })
-      .then(res => {
-        console.log(user_id)
-        commit('LOAD_PROFILE', res.data)
+    },
+
+    // 유저 프로필 사진 업로드
+    uploadImage: function (context, image) {
+      return new Promise((resolve, reject) => {
+        var formData = new FormData()
+        formData.append('image', image)
+        const token = localStorage.getItem('JWT')
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/accounts/profile/image/`,
+          data: formData,
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
       })
-      .catch(err => {
-        console.log(err)
+    },
+
+    // 유저 문구 변경
+    changePhrase: function (context, data) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/accounts/profile/phrase/`,
+          data: {
+            phrase: data
+          },
+          headers: setHeader()
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          reject(err)
+        })
+      })
+    },
+
+    // 유저 소개 변경
+    changeIntro: function (context, data) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/accounts/profile/intro/`,
+          data: {
+            intro: data
+          },
+          headers: setHeader()
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          reject(err)
+        })
       })
     },
 
@@ -272,16 +379,22 @@ export default new Vuex.Store({
 
     // 영화 목록 불러오기
     loadMovieCards: function ({ commit }) {
-      axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8000/movies/',
-        headers: setHeader(),
-      })
-      .then(res => {
-        commit('LOAD_MOVIE_CARDS', res.data)
-      })
-      .catch(err => {
-        console.log(err)
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'get',
+          url: 'http://127.0.0.1:8000/movies/',
+          headers: setHeader(),
+        })
+        .then(res => {
+          commit('LOAD_MOVIE_CARDS', res.data)
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          reject(err)
+        })
       })
     },
 
@@ -317,17 +430,23 @@ export default new Vuex.Store({
     },
 
     // 장르별 영화 불러오기
-    loadGenreMovies: function ({ commit }, genre_id) {
-      axios({
-        method: 'get',
-        url: `http://127.0.0.1:8000/movies/genre/${genre_id}/movies/`,
-        headers: setHeader(),
-      })
-      .then(res => {
-        commit('LOAD_GENREMOVIES', res.data)
-      })
-      .catch(err => {
-        console.log(err)
+    loadGenreMovies: function ({ commit }, genre) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'get',
+          url: `http://127.0.0.1:8000/movies/genre/${genre.id}/movies/`,
+          headers: setHeader(),
+        })
+        .then(res => {
+          commit('LOAD_GENREMOVIES', res.data)
+        })
+        .then(res => {
+          resolve(res)
+        })
+        .catch(err => {
+          console.log(err)
+          reject(err)
+        })
       })
     },
 
@@ -515,7 +634,6 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `http://127.0.0.1:8000/community/?page=${new_page}`,
-        // url: 'http://127.0.0.1:8000/community/',
         headers: setHeader(),
       })
       .then(res => {

@@ -1,34 +1,54 @@
 <template>
   <div>
-    <h2>회원가입</h2>
-    <hr>
     <!-- 회원가입 폼 -->
-    <div>
-      <label for="username">아이디 : </label>
-      <input
-        type="text"
+    <div class="mx-auto signupform">
+      <p style="font-size: x-large; margin-bottom: 2.5rem;"><span class="spread-underline">회원가입</span></p>
+      <v-text-field
+        label="아이디"
         id="username"
         v-model="credentials.username"
-      >
-    </div>
-    <div>
-      <label for="password">비밀번호 : </label>
-      <input
+      ></v-text-field>
+      <v-text-field
         type="password"
         id="password"
+        label="비밀번호"
         v-model="credentials.password"
-      >
-    </div>
-    <div>
-      <label for="passwordConfirmation">비밀번호 확인 : </label>
-      <input
+        @keyup.enter="login"
+      ></v-text-field>
+      <v-text-field
         type="password"
         id="passwordConfirmation"
         @keyup.enter="signup"
+        label="비밀번호 확인"
         v-model="credentials.passwordConfirmation"
-      >
+      ></v-text-field>
+      <v-btn
+        class="mt-5 ma-1"
+        color="error"
+        plain
+        @click="signup"
+      >signup
+      </v-btn>
+      <v-btn
+        class="mt-5 ma-1"
+        color="error"
+        plain
+        @click="moveToLogin"
+      >login
+      </v-btn>
     </div>
-    <button @click="signup">회원가입</button>
+    <div 
+      v-if="alertmsg"
+      @click="alertmsg=false"
+      style="margin-right: 40rem; margin-left: 40rem; margin-top: 6rem; cursor: pointer"
+    >
+      <v-alert
+        color="red"
+        type="error"
+      >
+        아이디와 비밀번호를 정확히 입력해 주세요
+      </v-alert>
+    </div>
   </div>
 </template>
 
@@ -43,6 +63,7 @@ export default {
         password: '',
         passwordConfirmations: '',
       },
+      alertmsg: false,
     }
   },
   methods: {
@@ -54,10 +75,52 @@ export default {
         // 로그인 화면으로 route
         this.$router.push({ name: 'Login' })
       })
-      .catch(err => {
-        console.log(err)
+      .catch(() => {
+        this.alertmsg = true
+        setTimeout(function(){
+          this.alertmsg = false
+        }, 500);
       })
-    }
+    },
+    moveToLogin: function () {
+      this.$router.push('Login')
+    },
   }
 }
 </script>
+
+<style>
+.signupform {
+  padding: 3rem;
+  width: 30%;
+  margin-top:
+  10rem;
+  box-shadow: 0 5px 10px -3px rgba(0,0,0,1);
+  border-radius: 10px;
+  background-color: #FFFFEF;
+}
+.signupform:hover .spread-underline:after {
+  width: 100%; 
+  left: 0; 
+}
+.spread-underline {
+  color: #333;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 0;
+  position: relative;
+}
+.spread-underline:after {
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  background: black;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+  transition:all .8s;
+}
+</style>

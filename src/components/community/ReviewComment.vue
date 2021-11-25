@@ -1,18 +1,38 @@
 <template>
-  <div>
+  <div class="row">
     <!-- 리뷰 댓글 정보 -->
-    <span v-if="reviewComment.user" @click="moveToProfile">{{ reviewComment.user.username }}</span> |
-    <span :class="{ hidden: inUpdate }">{{ reviewComment.content }}</span>
-    <input :class="{ hidden: !inUpdate }" type="text" v-model="reviewComment.content" @keyup.enter="updateReviewComment">
-    <button
-      v-if="reviewComment.user && reviewComment.user.username === username"
-      @click="clickUpdate"
-      :class="{ hidden: inUpdate }">수정</button>
-    <button @click="updateReviewComment" :class="{ hidden: !inUpdate }">작성</button>
-    <button
+    <div class="col-2 text-center">
+      <span v-if="reviewComment.user" @click="moveToProfile" style="cursor:pointer;">{{ reviewComment.user.username }} </span>
+    </div>
+    <div class="col-1">:</div>
+    <div class="col-7 text-start">
+      <span :class="{ hidden: inUpdate }">{{ reviewComment.content }}</span>
+      <input
+        :class="{ hidden: !inUpdate }"
+        type="text"
+        v-model="reviewComment.content"
+        @keyup.enter="updateReviewComment"
+      >
+    </div>
+    <div class="col-1 text-end">
+      <button
+          plain
+          :class="{ hidden: !inUpdate }"
+          @click="updateReviewComment"
+        ><font-awesome-icon :icon="['fas', 'check']" :style="{ color: 'black' }" />
+      </button>
+      <button
+        v-if="reviewComment.user && reviewComment.user.username === username"
+        @click="clickUpdate"
+        :class="{ hidden: inUpdate }"><font-awesome-icon :icon="['fas', 'pen']" :style="{ color: 'black' }" /></button>
+    </div>
+    <div class="col-1 text-center">
+      <button
       v-if="reviewComment.user && reviewComment.user.username === username"
       @click="deleteReviewComment"
-      :class="{ hidden: inUpdate }">삭제</button>
+      :class="{ hidden: inUpdate }"><font-awesome-icon :icon="['fas', 'trash-alt']" :style="{ color: 'red' }" /></button>
+    </div>
+    <v-divider></v-divider>
   </div>
 </template>
 

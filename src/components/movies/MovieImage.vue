@@ -1,7 +1,5 @@
 <template>
-  <div class="col-3">
-    <img :src="imgUrl" alt="img">
-  </div>
+  <b-carousel-slide :img-src="imgUrl"></b-carousel-slide>
 </template>
 
 <script>
@@ -19,6 +17,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

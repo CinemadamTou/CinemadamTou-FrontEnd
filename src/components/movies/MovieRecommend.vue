@@ -1,7 +1,7 @@
 <template>
-  <div class="col-3">
+  <div>
     <!-- <img :src="imgUrl" alt="img" @click="moveToMovieDetail"> -->
-    <img :src="imgUrl" alt="img" @click="moveToMovieDetail" style="width: 100%;">
+    <img :src="imgUrl" alt="img" @click="moveToMovieDetail" style="width: 100%; cursor:pointer;">
   </div>
 </template>
 
@@ -14,10 +14,11 @@ export default {
   methods: {
     // 해당하는 영화의 상세정보로 route
     moveToMovieDetail: function () {
-      this.$router.push({ name: 'MovieDetail', params: { movieId: this.recommendMovie.id }}).catch(()=>{})
+      this.$router.push({ name: 'MovieDetail', params: { movieId: this.recommendMovie.id }})
 
       // 영화 상세 정보 요청 (params 의 movieId 에 해당하는 영화)
       this.$store.dispatch('loadMovieDetail', this.$route.params.movieId)
+      this.$store.dispatch('getScore', this.$route.params.movieId)
       this.$store.dispatch('loadRecommendMovie', this.$route.params.movieId)
       this.$store.dispatch('loadMovieActors', this.$route.params.movieId)
       this.$store.dispatch('loadMovieImages', this.$route.params.movieId)
@@ -40,4 +41,18 @@ export default {
 </script>
 
 <style scoped>
+img {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  filter: drop-shadow(3px 3px 3px gray);
+}
+
+@media (hover: hover) {
+  img:hover {
+    filter: drop-shadow(4px 4px 4px rgb(24, 24, 24));
+    transition: 0.1s;
+  }
+}
 </style>

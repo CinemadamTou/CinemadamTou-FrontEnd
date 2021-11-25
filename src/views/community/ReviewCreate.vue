@@ -1,14 +1,27 @@
 <template>
   <div>
-    <h1>리뷰 작성</h1>
-    <hr>
     <!-- 리뷰 작성 폼 -->
-    <label for="title">제목 : </label>
-    <input type="text" id="title" v-model="review.title">
-    <br>
-    <label for="content">내용 : </label>
-    <input type="text" id="content" v-model="review.content" @keyup.enter="createReview">
-    <button @click="createReview">작성</button>
+    <div class="mx-auto reviewform">
+      <v-text-field
+        label="제목"
+        id="title"
+        v-model="review.title"
+        class="mb-3"
+      ></v-text-field>
+      <v-textarea
+        class="mb-5"
+        id="content"
+        label="내용"
+        v-model="review.content"
+        ></v-textarea>
+      <v-btn
+        class="ma-1"
+        color="error"
+        plain
+        @click="createReview"
+      >submit
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -23,7 +36,7 @@ export default {
         title: null,
         movie: null,
         content: null,
-      }
+      },
     }
   },
   methods: {
@@ -37,7 +50,7 @@ export default {
         .dispatch('createReview', this.review)
         .then(() => {
           // 영화 상세 정보로 route
-        this.$router.push({ name: 'ReviewList' })
+        this.$router.push({ name: 'ReviewList', params: { page: 1 }})
         })
       } else {
         alert('내용을 작성해주세요.')
@@ -48,5 +61,11 @@ export default {
 </script>
 
 <style>
-
+.reviewform {
+  padding: 3rem;
+  width: 30%;
+  margin-top: 10rem;
+  box-shadow: 0 5px 10px -3px rgba(0,0,0,1);
+  background-color: #FFFFEF;
+}
 </style>

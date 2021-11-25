@@ -63,7 +63,8 @@ const routes = [
     component: Profile,
   },
   {
-    path: '/community?page=:page',
+    // path: '/community?page=:page',
+    path: '/community/page/:page',
     name: 'ReviewList',
     component: ReviewList,
   },
